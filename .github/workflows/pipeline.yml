@@ -1,0 +1,27 @@
+name: good-ci-cd
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  gooddata-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: install dependencies
+        run: |
+          pip install dagger-io
+          pip install gooddata-sdk
+          pip install cattrs==22.2.0
+      - name: run pipeline
+        run: python pipeline.py
+    env:
+      GOODDATA_HOST: ${{secrets.GOODDATA_HOST}}
+      GOODDATA_TOKEN: ${{secrets.GOODDATA_TOKEN}}
+      GOODDATA_STAGING_WORKSPACE_ID: ${{secrets.GOODDATA_STAGING_WORKSPACE_ID}}
+      GOODDATA_PRODUCTION_WORKSPACE_ID: ${{secrets.GOODDATA_PRODUCTION_WORKSPACE_ID}}
