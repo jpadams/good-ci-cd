@@ -48,7 +48,6 @@ export GOODDATA_PRODUCTION_WORKSPACE_ID=<production-workspace-id>
 
 ```bash
 $ pip install dagger-io
-$ pip install gooddata-sdk
 ```
 
 ### Run pipeline
